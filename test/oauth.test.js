@@ -77,6 +77,24 @@ describe('OAuth ', () => {
     })
   })
 
+  describe('getAuthorizeUrlForWebsite', () => {
+    const oauth = OAuth('corpId', 'corpSecret', () => {}, () => {})
+    it('should the authorize url ', () => {
+      const options = {
+        redirect_uri: '/auth/wechat/callback',
+        scope: 'snsapi_base',
+				agentId: '1',
+				href: "/href",
+        state: 'st'
+      }
+      const authUrl = oauth.getAuthorizeUrlForWebsite(options)
+      expect(authUrl).to.equal('https://open.work.weixin.qq.com/wwopen/sso/qrConnect?appid=corpId&agentid=1&redirect_uri=%2Fauth%2Fwechat%2Fcallback&response_type=code&scope=snsapi_base&state=st&href=%2Fhref')
+      expect(() => {
+        oauth.getAuthorizeUrlForWebsite({})
+      }).to.throw('Wechat Enterprise getAuthorizeUrlForWebsite require \'agentId\' option')
+    })
+  })
+
   describe('getOAuthAccessToken ', () => {
     const oauth = OAuth('corpId', 'corpSecret', () => {}, () => {})
     it('should get the access token ', (done) => {

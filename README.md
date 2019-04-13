@@ -25,6 +25,7 @@ Passport的微信企业号OAuth2.0用户验证模块， 支持Express，Stronglo
 
   options的corpId，corpSecret和callbackURL是必需的，其他为可选。verify函数是验证或创建用户传给done函数, getAccessToken和saveAccessToken用已获得AccessToken和保存新的AccessToken，当`getAccessToken`返回的AccessToken无效时，会通过调用微信的`/gettoken`接口获取新的AccessToken，并用`saveAccessToken`进行保存。`getAccessToken` and `saveAccessToken` 都是必需的。
 
+  如果需要同时支持扫码登录，在`options` 中设置 `agentId` 即可。
 
 ```
 passport.use("wechat",new WechatPublicStrategy({
